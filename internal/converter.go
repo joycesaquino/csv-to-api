@@ -9,6 +9,10 @@ import (
 type Converter struct {
 }
 
+func NewConverter() *Converter {
+	return &Converter{}
+}
+
 func (c *Converter) CsvToPriceHistory(messages [][]string) ([]VisitorEvent, error) {
 	var visitorEvent VisitorEvent
 	var outputs []VisitorEvent
