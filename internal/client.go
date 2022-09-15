@@ -30,7 +30,7 @@ func (client Client) Post(ctx context.Context, body VisitorEvent) error {
 		SetContext(ctx).
 		SetHeader(contentTypeHeader, contentTypeJson).
 		SetBody(body).
-		Post("/api-endpoint")
+		Post("/visitor-events")
 
 	if err != nil {
 		return err

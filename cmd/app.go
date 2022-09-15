@@ -1,16 +1,16 @@
 package main
 
 import (
+	"context"
 	"csv-to-api/internal"
 	"encoding/csv"
 	"fmt"
-	"log"
 	"os"
 )
 
 func main() {
 
-	csvFile, err := os.Open("visitor-event-test.csv")
+	csvFile, err := os.Open("internal/events-test.csv")
 	var messages [][]string
 	reader := csv.NewReader(csvFile)
 	records, err := reader.ReadAll()
@@ -20,10 +20,18 @@ func main() {
 	messages = append(messages, records...)
 
 	converter := internal.NewConverter()
-	visitorEvents, err := converter.CsvToPriceHistory(messages)
+	httpClient := internal.NewClient()
+
+	visitorEvents, err := converter.CsvToVisitorEvents(messages)
 	if err != nil {
 		return
 	}
-	log.Println(visitorEvents)
+
+	for _, event := range visitorEvents {
+		err := httpClient.Post(context.Background(), event)
+		if err != nil {
+			return
+		}
+	}
 
 }
