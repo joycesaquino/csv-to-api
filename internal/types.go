@@ -4,21 +4,30 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
-	"time"
 )
 
 type VisitorEvent struct {
-	VisitorId          string    `json:"visitorId"`
-	VisitorInternalId  string    `json:"externalId"`
-	UserId             string    `json:"userId"`
-	HouseId            string    `json:"houseId"`
-	RegionId           string    `json:"regionId"`
-	DomainName         string    `json:"domainName"`
-	EventType          string    `json:"eventType"`
-	EventCode          string    `json:"eventCode"`
-	IdempotencyId      string    `json:"idempotencyId"`
-	EventDate          time.Time `json:"eventDate"`
-	VisitScheduledDate time.Time `json:"visitScheduledDate"`
+	VisitorId         string `json:"visitorId"`
+	VisitorInternalId string `json:"externalId"`
+	HouseId           string `json:"houseId"`
+	RegionId          string `json:"regionId"`
+	DomainName        string `json:"domainName"`
+	EventType         string `json:"eventType"`
+	EventCode         string `json:"eventCode"`
+	IdempotencyId     string `json:"idempotencyId"`
+	EventDate         string `json:"eventDate"`
+}
+
+type VisitorEventBody struct {
+	VisitorId         string `json:"visitorId"`
+	VisitorInternalId string `json:"externalId"`
+	HouseId           int    `json:"houseId"`
+	RegionId          int    `json:"regionId"`
+	DomainName        string `json:"domainName"`
+	EventType         string `json:"eventType"`
+	EventCode         string `json:"eventCode"`
+	IdempotencyId     string `json:"idempotencyId"`
+	EventDate         string `json:"eventDate"`
 }
 
 func (v VisitorEvent) GetIdempotencyId() string {
